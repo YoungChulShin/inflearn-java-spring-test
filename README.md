@@ -60,3 +60,54 @@ test double
    - Mock: 메서드 호출을 확인하기 위한 객체. 
    - Spy: 메서드 호출을 전부 기록했다가 나중에 확인하기 위한 객체. 
 
+## 의존성
+### 의존성
+개념
+- A가 B를 사용하는 개념.
+- 의존성 주입으로 약화시킬 수는 있지만 제거할 수는 없다. 
+
+### 의존성 역전
+DI와 DIP는 다르다. 
+
+개념
+- 상위 모듈은 하위 모듈에 의존해서는 안된다. 
+- 추상화는 세부 사항에 의존해서는 안된다. 세부사항이 추상화에 의존해야 한다. 
+
+### Testability
+테스트를 하다가 mock 프레임워크 없이는 테스트가 불가능하다는 생각이 들면? 테스트가 보내는 설계 신호.
+
+숨겨진 의존성은 테스트를 힘들게 만든다. 하지만 어딘가에서는 하드코딩이 들어가야한다. 
+
+__이럴 때 의존성 역전을 고려해볼 수 있다.__
+
+예시
+```java
+// 현재 시간을 가져오는 예시
+
+// 방법 1 - 내부 구현
+public void login() {
+   this.lastLoginTimestamp = Clock.systemUTC().millis();
+}
+
+// 방법 2 - 의존성 주입
+// 이 메서드를 호출하는 곳에서 또 구현이 필요하다.
+public void login(Clock clock) {
+   this.lastLoginTimestamp = clock.systemUTC().millis();
+}
+
+// 방법 3 - 의존성 역전
+public void loing(ClockHolder clockHolder) {
+   this.lastLoginTimestamp = clockHolder.getMillis();
+}
+
+public interface ClockHolder {
+   long getMillis();
+}
+
+public class SystemClockHolder implemnets ClockHodler {
+   @Override
+   public long getMillis() {
+      return Clock.systemUTC().millis();
+   }
+}
+```
