@@ -112,3 +112,12 @@ public class SystemClockHolder implemnets ClockHodler {
 }
 ```
 
+# 실습 메모
+## DataJpaTest
+`ExtendWith(SpringExtension.claa)` 를 내장하고 있다. 
+
+`@TestPropertySource("classpath:test-application-properties")`를 이용해서 명시적으로 설정파일 위치를 지정해 줄 수 있다. 
+
+`@Sql("/sql/user-repository-test-data.sql")`과 같이 `@Sql` 애노테이션을 이용해서 초기 데이터를 설정해줄 수 있다. 
+
+
