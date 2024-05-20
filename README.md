@@ -118,6 +118,17 @@ public class SystemClockHolder implemnets ClockHodler {
 
 `@TestPropertySource("classpath:test-application-properties")`를 이용해서 명시적으로 설정파일 위치를 지정해 줄 수 있다. 
 
+## Repisitory 초기화
 `@Sql("/sql/user-repository-test-data.sql")`과 같이 `@Sql` 애노테이션을 이용해서 초기 데이터를 설정해줄 수 있다. 
 
-
+'@SQL'은 여러 메서드에서 같이 사용될 경우 충돌이 발생할 수 있는데, 이때 `@SqlGroup`으로 Sql을 묶어주고 `ExecutionPhase`를 지정해줄 수 있다. 
+```java
+@SqlGroup({
+    @Sql(
+        value = "/sql/user-service-test-data.sql",
+        executionPhase = ExecutionPhase.BEFORE_TEST_METHOD),
+    @Sql(
+        value = "/sql/delete-all-data.sql",
+        executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+})
+```
