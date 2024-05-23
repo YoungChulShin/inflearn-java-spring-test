@@ -137,7 +137,6 @@ public class SystemClockHolder implemnets ClockHodler {
 `@MockBean` 애노테이션
 - 테스트를 실행할 때 MockBean이 주입되어서 실행된다. 
 
-
 ## AssertJ
 `assertThatThrownBy` 
 - 예외가 발생하는 테스트에 대해서 Exception을 가져와서 처리할 수 있다. 
@@ -146,3 +145,15 @@ public class SystemClockHolder implemnets ClockHodler {
       userService.verifyEmail(2, "bbbbbbbbba");
     }).isInstanceOf(CertificationCodeNotMatchedException.class);
    ```
+
+## MockMvcTEst
+애노테이션 정의
+- `@AutoConfigureMockMvc`: MockMvc를 사용하기 위한 애노테이션
+- `@AutoConfigureTestDatabase`: TestDB를 사용하기 위한 애노테이션
+   - replace 값을 이용해서 설정을 조정할 수 있다. 
+
+MockMvc 가져오기
+```java
+@Autowired
+private MockMvc mockMvc;
+```
