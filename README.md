@@ -132,3 +132,17 @@ public class SystemClockHolder implemnets ClockHodler {
         executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 })
 ```
+
+## 테스트 의존성 주입
+`@MockBean` 애노테이션
+- 테스트를 실행할 때 MockBean이 주입되어서 실행된다. 
+
+
+## AssertJ
+`assertThatThrownBy` 
+- 예외가 발생하는 테스트에 대해서 Exception을 가져와서 처리할 수 있다. 
+   ```java
+   Assertions.assertThatThrownBy(() -> {
+      userService.verifyEmail(2, "bbbbbbbbba");
+    }).isInstanceOf(CertificationCodeNotMatchedException.class);
+   ```
