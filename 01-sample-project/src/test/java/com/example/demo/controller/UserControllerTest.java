@@ -83,6 +83,16 @@ class UserControllerTest {
   }
 
   @Test
+  void 사용자는_인증코드가_일치하지_않을_경우_권한_없음_에러를_준다() throws Exception {
+    // given
+    // when
+    // then
+    mockMvc.perform(get("/api/users/2/verify")
+            .queryParam("certificationCode", "aaaaaaaaaa"))
+        .andExpect(status().isForbidden());
+  }
+
+  @Test
   void 사용자는_내_정보를_불러올_때_개인정보인_주수도_갖고_올_수_있다() throws Exception {
     // given
     // when
