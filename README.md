@@ -157,3 +157,27 @@ MockMvc 가져오기
 @Autowired
 private MockMvc mockMvc;
 ```
+
+perform 수행
+- 특정 값 가져오기
+   - `jsonPath.value`를 이용해서 가능하다. 
+- 특정 값이 없어야하는 테스트
+   - `jsonPath.doesNotExist`를 이용해서 가능하다. 
+- 샘플 코드
+   ```java
+   mockMvc.perform(get("/api/users/1"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.id").value(1))
+        .andExpect(jsonPath("$.email").value("go1323@test.com"))
+        .andExpect(jsonPath("$.nickname").value("go1323"))
+        .andExpect(jsonPath("$.address").doesNotExist())
+        .andExpect(jsonPath("$.status").value("ACTIVE"));
+   ```
+
+## Mockito 
+BDD 스타일 테스트
+```java
+// BDDMockito를 사용
+BDDMockito.doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+```
+
