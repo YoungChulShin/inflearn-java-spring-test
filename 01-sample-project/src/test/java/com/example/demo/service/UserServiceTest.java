@@ -1,16 +1,15 @@
 package com.example.demo.service;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
-import com.example.demo.exception.CertificationCodeNotMatchedException;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.UserStatus;
-import com.example.demo.model.dto.UserCreateDto;
-import com.example.demo.model.dto.UserUpdateDto;
-import com.example.demo.repository.UserEntity;
-import com.example.demo.repository.UserRepository;
-import java.util.Optional;
+import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
+import com.example.demo.common.domain.exception.ResourceNotFoundException;
+import com.example.demo.user.domain.UserStatus;
+import com.example.demo.user.domain.UserCreate;
+import com.example.demo.user.domain.UserUpdate;
+import com.example.demo.user.infrastructure.UserEntity;
+import com.example.demo.user.infrastructure.UserRepository;
+import com.example.demo.user.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -73,7 +72,7 @@ class UserServiceTest {
   @Test
   void UserCreateDto_를_이용해서_유저를_생성할_수_있다() {
     // given
-    UserCreateDto userCreateDto = UserCreateDto.builder()
+    UserCreate userCreate = UserCreate.builder()
         .email("test@test.com")
         .address("Inchon")
         .nickname("test")
@@ -85,7 +84,7 @@ class UserServiceTest {
 
 
     // when
-    UserEntity result = userService.create(userCreateDto);
+    UserEntity result = userService.create(userCreate);
 
     // then
     Assertions.assertThat(result).isNotNull();
@@ -95,7 +94,7 @@ class UserServiceTest {
   @Test
   void UserUpdateDto_를_이용해서_유저를_수정할_수_있다() {
     // given
-    UserUpdateDto updateDto = UserUpdateDto.builder()
+    UserUpdate updateDto = UserUpdate.builder()
         .address("Seoul")
         .nickname("test2")
         .build();

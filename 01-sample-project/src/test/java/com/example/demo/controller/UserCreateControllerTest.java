@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.demo.model.dto.UserCreateDto;
-import com.example.demo.model.dto.UserUpdateDto;
+import com.example.demo.user.domain.UserCreate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -45,7 +43,7 @@ class UserCreateControllerTest {
   @Test
   void 사용자_정보를_생성할_수_있다() throws Exception {
     // given
-    UserCreateDto userCreateDto = UserCreateDto.builder()
+    UserCreate userCreate = UserCreate.builder()
         .email("go13232@test.com")
         .nickname("go13232")
         .address("Incheon")
@@ -56,7 +54,7 @@ class UserCreateControllerTest {
 
     // then
     mockMvc.perform(post("/api/users")
-            .content(objectMapper.writeValueAsString(userCreateDto))
+            .content(objectMapper.writeValueAsString(userCreate))
             .contentType(MediaType.APPLICATION_JSON_VALUE)
         )
         .andExpect(status().isCreated())
